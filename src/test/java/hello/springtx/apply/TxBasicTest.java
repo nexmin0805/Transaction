@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @Slf4j
 @SpringBootTest
 public class TxBasicTest {
@@ -19,8 +21,15 @@ public class TxBasicTest {
     @Test
     void proxyCheck(){
         log.info("aop class={}", basicService.getClass());
-        AopUtils.isAopProxy(basicService);
+        assertThat(AopUtils.isAopProxy(basicService)).isTrue();
     }
+
+    @Test
+    void txText(){
+        basicService.tx();
+        basicService.nonTx();
+    }
+
     @TestConfiguration
     static class txApplyBasicConfig{
         @Bean
