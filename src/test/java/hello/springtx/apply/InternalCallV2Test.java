@@ -20,6 +20,7 @@ public class InternalCallV2Test {
 
     @Test
     void printProxy(){
+
         log.info("callService class{}", callService.getClass());
     }
 
